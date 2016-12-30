@@ -3,7 +3,7 @@ DVWA LAMP container
 
 This definitely isn't for production. I've bundled DVWA with the tutum/lamp docker container. To run, clone the repo and build the container, naming it whatever you want. I don't intend to upload this to the Docker repository yet, but maybe at some future date.  
 
-
+This would not have been possible without the work done by tutum over [here](https://github.com/tutumcloud/lamp) and the [DVWA project](https://github.com/ethicalhack3r/DVWA).
 
 Usage
 -----

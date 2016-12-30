@@ -4,7 +4,7 @@ MAINTAINER Fernando Mayo <fernando@tutum.co>, Feng Honglin <hfeng@tutum.co>
 # Install packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
-  apt-get -y install supervisor git apache2 libapache2-mod-php5 mysql-server php5-mysql pwgen php-apc php5-mcrypt && \
+  apt-get -y install supervisor git apache2 libapache2-mod-php5 mysql-server php5-mysql pwgen php-apc php5-mcrypt php5-gd && \
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Add image configuration and scripts
@@ -24,12 +24,18 @@ ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
 RUN chmod 755 /*.sh
 
 # config to enable .htaccess
-ADD apache_default /etc/apache2/sites-available/000-default.conf
-RUN a2enmod rewrite
+#ADD apache_default /etc/apache2/sites-available/000-default.conf
+#RUN a2enmod rewrite
 
-# Configure /app folder with sample app
-RUN git clone https://github.com/fermayo/hello-world-lamp.git /app
+# Install DVWA into your container
+RUN rm -rf /app && git clone https://github.com/ethicalhack3r/DVWA.git /app
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
+RUN chmod 666 /app/hackable/uploads/
+RUN chmod 666 /app/external/phpids/0.6/lib/IDS/tmp/phpids_log.txt
+
+#fix DVWA php.ini to allow for RFI
+
+RUN sed -i 's/allow_url_include = Off/allow_url_include = On/g' /etc/php5/apache2/php.ini
 
 #Environment variables to configure php
 ENV PHP_UPLOAD_MAX_FILESIZE 10M

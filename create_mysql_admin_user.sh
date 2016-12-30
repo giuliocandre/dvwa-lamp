@@ -34,3 +34,9 @@ echo "MySQL user 'root' has no password but only allows local connections"
 echo "========================================================================"
 
 mysqladmin -uroot shutdown
+
+echo "=> Creating root password for DVWA"
+
+mysqladmin -u root password p@ssw0rd
+
+mysqladmin -uroot -pp@ssw0rd shutdown

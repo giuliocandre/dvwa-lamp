@@ -1,62 +1,25 @@
-tutum-docker-lamp
+DVWA LAMP container
 =================
 
-[![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
-
-Out-of-the-box LAMP image (PHP+MySQL)
-
+This definitely isn't for production. I've bundled DVWA with the tutum/lamp docker container. At this time, you have to manually update the sql root user password to p@ssw0rd or the database won't create correctly. I'll fix that soon. If you have any issues in the meantime, make sure you update the password and kill all instances of mysqld, including the ones spawned as a subprocess of /bin/sh. They'll automatically restart and you're ready to go.
 
 Usage
 -----
 
-To create the image `tutum/lamp`, execute the following command on the tutum-docker-lamp folder:
-
-	docker build -t tutum/lamp .
-
-You can now push your new image to the registry:
-
-	docker push tutum/lamp
-
+docker build -t remotephone/dvwa-lamp .
 
 Running your LAMP docker image
 ------------------------------
 
 Start your image binding the external ports 80 and 3306 in all interfaces to your container:
 
-	docker run -d -p 80:80 -p 3306:3306 tutum/lamp
+	docker run -d -p 80:80 -p 3306:3306 <name> 
 
 Test your deployment:
 
-	curl http://localhost/
-
-Hello world!
+	http://localhost/setup.php
 
 
-Loading your custom PHP application
------------------------------------
-
-In order to replace the "Hello World" application that comes bundled with this docker image,
-create a new `Dockerfile` in an empty folder with the following contents:
-
-	FROM tutum/lamp:latest
-	RUN rm -fr /app && git clone https://github.com/username/customapp.git /app
-	EXPOSE 80 3306
-	CMD ["/run.sh"]
-
-replacing `https://github.com/username/customapp.git` with your application's GIT repository.
-After that, build the new `Dockerfile`:
-
-	docker build -t username/my-lamp-app .
-
-And test it:
-
-	docker run -d -p 80:80 -p 3306:3306 username/my-lamp-app
-
-Test your deployment:
-
-	curl http://localhost/
-
-That's it!
 
 
 Connecting to the bundled MySQL server from within the container

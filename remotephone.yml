@@ -1,5 +1,5 @@
-lamp:
-  image: tutum/lamp
+dvwa-lamp:
+  image: remtephone/dvwa-lamp
   ports:
     - 80:80
     - 3306:3306

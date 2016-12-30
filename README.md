@@ -1,10 +1,9 @@
 DVWA LAMP container
 =================
 
-This definitely isn't for production. I've bundled DVWA with the tutum/lamp docker container. At this time, you have to manually update the sql root user password to p@ssw0rd or the database won't create correctly. I'll fix that soon. If you have any issues in the meantime, make sure you update the password and kill all instances of mysqld, including the ones spawned as a subprocess of /bin/sh. They'll automatically restart and you're ready to go.
+This definitely isn't for production. I've bundled DVWA with the tutum/lamp docker container. To run, clone the repo and build the container, naming it whatever you want. I don't intend to upload this to the Docker repository yet, but maybe at some future date.  
 
 
-I'm considering changing DVWA to use the admin user created in the startup script, but I don't fully understand what that will impact yet. Updates to come soon...
 
 Usage
 -----
@@ -16,7 +15,7 @@ Running your LAMP docker image
 
 Start your image binding the external ports 80 and 3306 in all interfaces to your container:
 
-	docker run -d -p 80:80 -p 3306:3306 <name> 
+	docker run -d -p 80:80 -p 3306:3306 remotephone/lamp 
 
 Test your deployment:
 
@@ -66,6 +65,8 @@ You can then connect to MySQL:
 Remember that the `root` user does not allow connections from outside the container -
 you should use this `admin` user instead!
 
+The root user has been configured to use the DVWA password default, p@ssw0rd. You're a braver person than I am if you expose this. 
+
 
 Setting a specific password for the MySQL server admin account
 --------------------------------------------------------------
@@ -93,4 +94,4 @@ For this version, I've disabled htaccess. You shouldn't be exposing this publicl
     RUN a2enmod rewrite
 
 
-**by http://www.tutum.co**
+**by http://www.tutum.co and updated by https://remotephone.github.io**

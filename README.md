@@ -3,10 +3,13 @@ DVWA LAMP container
 
 This definitely isn't for production. I've bundled DVWA with the tutum/lamp docker container. At this time, you have to manually update the sql root user password to p@ssw0rd or the database won't create correctly. I'll fix that soon. If you have any issues in the meantime, make sure you update the password and kill all instances of mysqld, including the ones spawned as a subprocess of /bin/sh. They'll automatically restart and you're ready to go.
 
+
+I'm considering changing DVWA to use the admin user created in the startup script, but I don't fully understand what that will impact yet. Updates to come soon...
+
 Usage
 -----
 
-docker build -t remotephone/dvwa-lamp .
+	docker build -t remotephone/dvwa-lamp .
 
 Running your LAMP docker image
 ------------------------------
@@ -70,7 +73,7 @@ Setting a specific password for the MySQL server admin account
 If you want to use a preset password instead of a random generated one, you can
 set the environment variable `MYSQL_PASS` to your specific password when running the container:
 
-	docker run -d -p 80:80 -p 3306:3306 -e MYSQL_PASS="mypass" tutum/lamp
+	docker run -d -p 80:80 -p 3306:3306 -e MYSQL_PASS="mypass" <name> 
 
 You can now test your new admin password:
 
@@ -79,6 +82,9 @@ You can now test your new admin password:
 
 Disabling .htaccess
 --------------------
+
+
+For this version, I've disabled htaccess. You shouldn't be exposing this publicly anyway.
 
 `.htaccess` is enabled by default. To disable `.htaccess`, you can remove the following contents from `Dockerfile`
 

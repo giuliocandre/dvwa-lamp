@@ -10,10 +10,10 @@ Usage
 
 	docker build -t remotephone/dvwa-lamp .
 
-Running your LAMP docker image
+Running your DVWA-LAMP docker image
 ------------------------------
 
-Start your image binding the external ports 80 and 3306 in all interfaces to your container:
+Start your image binding the external ports 80 and 3306 in all interfaces to your container. 3306 is optional since you won't really need to do much admin'ing of the database. 
 
 	docker run -d -p 80:80 -p 3306:3306 remotephone/lamp 
 
@@ -21,7 +21,7 @@ Test your deployment:
 
 	http://localhost/setup.php
 
-
+Create the DVWA database and get started by logging in with admin/password. Don't forget to change the Security Level to something you can work with. 
 
 
 Connecting to the bundled MySQL server from within the container

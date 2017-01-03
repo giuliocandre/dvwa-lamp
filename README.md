@@ -15,7 +15,7 @@ Running your DVWA-LAMP docker image
 
 Start your image binding the external ports 80 and 3306 in all interfaces to your container. 3306 is optional since you won't really need to do much admin'ing of the database. 
 
-	docker run -d -p 80:80 -p 3306:3306 remotephone/lamp 
+	docker run -d -p 80:80 -p 3306:3306 remotephone/dvwa-lamp 
 
 Test your deployment:
 
@@ -27,7 +27,7 @@ Create the DVWA database and get started by logging in with admin/password. Don'
 Connecting to the bundled MySQL server from within the container
 ----------------------------------------------------------------
 
-The bundled MySQL server has a `root` user with no password for local connections.
+The bundled MySQL server has a `root` user with the DVWA root password (p@ssw0rd) for local connections.
 Simply connect from your PHP code with this user:
 
 	<?php
@@ -65,7 +65,7 @@ You can then connect to MySQL:
 Remember that the `root` user does not allow connections from outside the container -
 you should use this `admin` user instead!
 
-The root user has been configured to use the DVWA password default, p@ssw0rd. You're a braver person than I am if you expose this. 
+The root user has been configured to use the DVWA password default, p@ssw0rd. Do what you want in your lab, but make sure it stays inside your lab.
 
 
 Setting a specific password for the MySQL server admin account
